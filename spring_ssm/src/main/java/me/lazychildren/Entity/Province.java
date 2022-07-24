@@ -1,4 +1,4 @@
-package com.neuedu.Entity;
+package me.lazychildren.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

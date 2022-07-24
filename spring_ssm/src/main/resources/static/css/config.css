@@ -1,0 +1,179 @@
+
+.chinamap{
+	height: 550px;
+	width: 700px;
+	border:thin solid #00aaff;
+	background-color: #272e87;
+	left: 130px;
+}
+
+.index a {
+  position: absolute;
+  top: -8px;
+  left: 30px;
+  text-align: center;
+  line-height: 75px;
+  color: rgba(255, 255, 255);
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.chinazhu{
+	height: 370px;
+	width: 500px;
+	position: absolute;
+	top: 280px;
+	left: 870px;
+	
+	border:thin solid #00aaff;
+	background-color: #282c85;
+	
+}
+
+.cure {
+	height: 150px;
+	position: absolute;
+	top : 100px;
+	left:870px;
+	border:thin solid #00aaff;
+	background-color: #282c85;
+	width: 500px;
+
+}
+.cure h1 {
+    float: left;
+    height: 2rem;
+    font-size: 1.5rem;
+    margin-left: 6rem;
+	color:#D33B20;
+}
+
+.cure h2 {
+    float: left;
+    height: 2rem;
+    font-size: 1.5rem;
+	margin-top: 1.15rem;
+    margin-left: 6rem;
+  	color:#55ff7f;
+  }
+  
+
+  
+  .cure h3{
+	  float: left;
+	  font-size: 2rem;
+	  position: absolute;
+	  top:40px;
+	  margin-left: 4.9rem;
+	  color:#D33B20;
+  }
+  
+  
+  .cure h4{
+  	 float: left;
+  	 font-size: 2rem;
+  	 position: absolute;
+  	 top:30px;
+  	 margin-left: 17.5rem;
+  	 color:#55ff7f;
+  }
+  
+  
+/* 
+  .header {
+   height: 150px;
+   position: absolute;
+   top : 7px;
+   left:870px;
+   border:thin solid #00aaff;
+   background-color: #282c85;
+   width: 500px;
+  }
+  
+  .header h1 {
+    float: left;
+    height: 2rem;
+    font-size: 1.5rem;
+    margin-left: 6rem;
+	color:#D33B20;
+  }
+  
+  .header h2 {
+    float: left;
+    height: 2rem;
+    font-size: 1.5rem;
+	margin-top: 1.15rem;
+    margin-left: 6rem;
+  	color:#55ff7f;
+  }
+  
+
+  
+  .header h3{
+	  float: left;
+	  font-size: 2rem;
+	  position: absolute;
+	  top:40px;
+	  margin-left: 4.9rem;
+	  color:#D33B20;
+  }
+  
+  
+  .header h4{
+  	 float: left;
+  	 font-size: 2rem;
+  	 position: absolute;
+  	 top:30px;
+  	 margin-left: 17.5rem;
+  	 color:#55ff7f;
+  } */
+  
+  .chart1{
+	  
+		height: 500px;
+		width: 800px;
+		left: 140px;
+	position: absolute;
+	top:670px;
+	
+	
+	border:thin solid #00aaff;
+	background-color: #282c85;
+  }
+  
+  .bottom{
+	  position: absolute;
+	  top: 1500px;
+	  height:0px;
+	  width: 1260px;
+	  border:thin solid #00aaff;
+	  background-color: #282c85;
+  }
+  
+  .chart2{
+	  height: 500px;
+	  	width: 410px;
+	  
+	  position: absolute;
+	  top:670px;
+	  left:960px;
+	  
+	  border:thin solid #00aaff;
+	  background-color: #282c85;
+  }
+  
+  .buttonarea{
+  	  height: 30px;
+  	  	width: 100px;
+  	  
+  	  position: absolute;
+  	  top:1120px;
+  	  left:720px;
+  	  
+  	  border:thin solid #00aaff;
+  	  background-color: #282c85;
+  }
+  
+  .buttonarea a{
+	  color:#00aaff;
+  }

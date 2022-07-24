@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>China</title>
+		<style>
+		
+		body 
+		
+		{
+			background-color: rgba(21, 25, 101);
+		    background-image:url(/../images/bg4.png);
+		}
+		
+		header {
+			/* max-width: 1920px; */
+			/* position: relative; */
+			background: url('/../images/head_bg.png') no-repeat top center;
+			height: 80px;
+			/* 🔺缩放比例 100% */
+			background-size: 100% 100%;
+		}
+		header h1 {
+			color: white;
+			font-size: 28px;
+			/* 文字居中 */
+			text-align: center;
+			line-height: 66px;
+			font-weight: 800;
+		}
+
+		.showTime {
+			position: absolute;
+			top: -8px;
+			right: 20px;
+			/* float: right; */
+			text-align: center;
+			line-height: 75px;
+			color: rgba(255, 255, 255);
+			font-size: 18px;
+		}
+
+		</style>
+		<link rel="stylesheet" type="text/css" href="../css/config.css">
+		<script src="../js/echarts.min.js"></script>
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+		
+	</head>
+	
+	<body>
+		<header container>
+
+			 
+			</div>
+			<h1>国内疫情数据</h1>
+			<div class="showTime" id="ST"></div>
+		</header>
+		<div id="chinamap" class="chinamap"></div>
+		<div id="chinazhu" class="chinazhu"></div>
+
+
+		<div id="cure" class="cure" style="background: url(../images/logo2.png)">
+			
+
+
+		</div>
+
+
+		<div id="chart1" class="chart1"></div>
+		<div id="chart2" class="chart2"></div>
+		<div id="bottom" class="bottom"></div>
+		<!-- <div id="buttonarea" class="buttonarea">
+			 <center><a href="world.html" >全球疫情</a></center> 
+			
+		</div> -->
+		<script>
+		        // 初始化echarts实例
+		        var myEcharts = echarts.init(document.getElementById("chinamap"));
+		        var option = {
+		            title: {  //标题样式
+		                text: '国内疫情一览',
+		                x: "center",
+						top: '10%',
+						textStyle:{
+							color: 'white',
+							fontSize: '25',
+						}
+		            },
+					
+		            tooltip: {
+		                trigger: 'item',
+		                formatter: '{a}<br/>{b} : {c} 人',
+		            },
+					toolbox: {   //工具箱
+					
+					  show: true,   //是否显示  默认为true
+					
+					  feature: {
+						  
+						dataView: {    //数据视图
+						   show: true,
+						   readOnly: true    //是否只读  默认为false
+						},
+					
+					   
+						
+					
+						restore: {   //刷新
+						  show: true,
+						  title: '恢复'
+						  
+						},
+					
+						saveAsImage: {  //保存图片
+						  show: true,
+						  type: 'jpg'   //图片的文件类型
+						}
+					  }
+					},
+					
+					  visualMap: {
+					    min: 0,
+					    max: 50,
+						text:[">100","0"],
+					    calculable: false,
+					    realtime: false,
+					    inRange: {
+						  color: ["#e0f3f8", "#abd9e9", "#74add1", "#4575b4", "#313695"],
+					    },
+					    textStyle: {
+					      color: "rgba(255,255,255,1)"
+					    }
+					  },
+		    
+		            series: [
+		                {
+		                    name: '当前确诊人数',
+		                    type: 'map',
+		                    mapType: 'china',
+		                    roam: false,//是否开启鼠标缩放和平移漫游
+		                    itemStyle: {//地图区域的多边形 图形样式
+		                        normal: {//是图形在默认状态下的样式
+		                            label: {
+		                                show: true,//是否显示标签
+		                                textStyle: {
+		                                    color: "black"
+		                                }
+		                            }
+		                        },
+		                        zoom: 1.5,  //地图缩放比例,默认为1
+		                        emphasis: {//是图形在高亮状态下的样式,比如在鼠标悬浮或者图例联动高亮时
+		                            label: {show: true}
+		                        }
+		                    },
+		                    top: "10%",//组件距离容器的距离
+		                    data: [
+		                       
+		                    ]
+		                }
+						
+						
+		            ]
+		        };
+		        // 使用刚指定的配置项和数据显示图表。
+		        myEcharts.setOption(option);
+					var maps=[];
+				var fillToPieMap = function(epidemics){
+				
+					$.each(epidemics,function(index,epidemic){
+						var obj={}
+						obj.name=epidemic.name
+						obj.value=epidemic.curnum
+		
+						maps.push(obj)
+					});
+					var obj={}
+					obj.name="南海诸岛"
+					obj.value=0
+					maps.push(obj)
+
+					
+				};
+				$.get("http://localhost:8090/getmap",{},function(data){
+		
+					fillToPieMap(data);
+				myEcharts.setOption(
+				{
+					
+					series: [	
+					{
+						data:maps,
+				    }]
+				});
+					
+				})
+				
+		    </script>
+			<script type="text/javascript">
+				
+				
+			  // 基于准备好的dom，初始化echarts实例
+			  var myChart = echarts.init(document.getElementById('chinazhu'));
+			 
+			  
+			  // 指定图表的配置项和数据
+			 var option = {
+				 textStyle:
+				 {
+					 color:'#4b7fc3',
+					 fontSize:'13',
+				 },
+				
+			 				title: {  //标题样式
+			      text: '近日国内疫情趋势',
+			      left:'3%',
+			  	top: '5%',
+			  	textStyle:{
+			  		color: 'white',
+			  		fontSize: '15',
+					fontWeight: 'lighter',
+			  	}
+			  },
+			  dataZoom: [
+			      {
+			        type: 'inside',
+			        start: 0,
+			        end: 10
+			      },
+			      {
+			        start: 0,
+			        end: 10
+			      }
+			    ],
+			  grid:{
+				  top:'25%',
+				  left: '15%',
+				  right: '15%', 
+				  bottom:'20%',
+			  },
+			  toolbox: {   //工具箱
+			  
+			  show: true,   //是否显示  默认为true
+			
+			  feature: {
+				  
+				dataView: {    //数据视图
+				   show: true,
+				   readOnly: true    //是否只读  默认为false
+				},
+			
+			   magicType: {   //图表切换
+				  show: true,
+				  type: ['line', 'bar']    //可以切换的图表类型的数组
+			   },
+				
+			
+				restore: {   //刷新
+				  show: true,
+				  title: '恢复'
+				  
+				},
+			
+				saveAsImage: {  //保存图片
+				  show: true,
+				  type: 'jpg'   //图片的文件类型
+				}
+			  }
+			},
+			    tooltip: {
+			       trigger: 'axis',
+			       position: function (pt) {
+			         return [pt[0], '10%'];
+			       }
+			     },
+			   
+			   legend: {
+			   				   top:'5%',
+							   textStyle:
+							   				 {
+							   					 color:'#4b7fc3',
+							   					 fontSize:'13',
+							   				 },
+			     data: ['累计确诊', '新增确诊'],
+			   },
+			 
+			   xAxis:{
+				   
+			   },
+			   yAxis: [{
+			 					type:'value',
+			 					name:'新增确诊',
+								alignTicks: true,
+								boundaryGap: true,
+								axisLine:
+								{
+										lineStyle:
+										{
+															color: '#4b7fc3',
+										},
+								},
+								splitLine:
+								{
+									show:false,
+									
+								},
+			 					textStyle:{
+									color:'white',
+								},
+								
+								
+			 				},
+			 				{
+			 					type:'value',
+			 					name:'累计确诊',
+								alignTicks:true,
+								boundaryGap: true,
+								min: 'dataMin',
+								axisLine:
+								{
+										lineStyle:
+										{
+															color: '#4b7fc3',
+										},
+								},
+								
+								splitLine:
+								{
+									show:false,
+									
+								},
+								
+			 				}],
+			   series: [
+			     {
+			       name: '累计确诊',
+			       type: 'line',
+			       data: [],
+				   yAxisIndex: 1,
+				   smooth: true,
+				   showSymbol: false,
+				   lineStyle:{
+					   color:'rgb(0,230,0)',
+					   
+				   },
+				   itemStyle:{
+					 color:  'rgb(0,230,0)',
+				   },
+				   areaStyle: {
+							color: {
+								type: 'linear',
+								x: 0,
+								y: 0,
+								x2: 0,
+								y2: 1,
+								colorStops: [
+									{
+										offset: 0,
+										color: 'rgba(44,254,100,1)' // 0% 处的颜色
+									},
+									{
+										offset: 0.3,
+										color: 'rgba(44,250,80,0.6)' // 
+									},
+									{
+										offset: 0.7,
+										color: 'rgba(30,250,50,0.2)' // 
+									},
+									{
+										offset: 1,
+										color: 'rgba(44,254,239,0)' // 
+									}
+								],
+								global: false // 缺省为 false
+							}
+						}
+			     },
+				  {
+					  name:'新增确诊',
+					  type:'line',
+					  data: [],
+					  smooth: true,
+					  showSymbol: false,
+					  lineStyle:
+					  {
+										color: '#50c1c3',
+					  },
+					  itemStyle:{
+						  color: '#50c1c3',
+					  },
+					  areaStyle: {
+					  							color: {
+					  								type: 'linear',
+					  								x: 0,
+					  								y: 0,
+					  								x2: 0,
+					  								y2: 1,
+					  								colorStops: [
+					  									{
+					  										offset: 0,
+					  										color: 'rgba(44,100,254,1.0' // 0% 处的颜色
+					  									},
+					  									{
+					  										offset: 0.3,
+					  										color: 'rgba(44,254,239,0.6)' // 
+					  									},
+					  									{
+					  										offset: 0.7,
+					  										color: 'rgba(44,254,239,0.2)' // 
+					  									},
+					  									{
+					  										offset: 1,
+					  										color: 'rgba(44,254,239,0)' // 
+					  									}
+					  								],
+					  								global: false // 缺省为 false
+					  							}
+					  						}
+				  }
+			   ]
+			 };
+			 			
+			 // 使用刚指定的配置项和数据显示图表。
+			 myChart.setOption(option);
+			 
+			 $.get("http://localhost:8090/getdetail",function(data){
+				 var newPa = [];
+				 var date=[];
+				 var totalPa=[];
+				 var oneDay= 24*3600*1000;
+				var curDay=new Date();
+				var base = curDay-60*oneDay;
+
+
+				 $.each(data,function(index,cur){
+					 var now = new Date((base += oneDay));
+					  date.push([now.getFullYear(), now.getMonth(), now.getDate()].join('/'));
+			
+					 newPa.push(cur.newnum);
+					  
+					
+					 totalPa.push(cur.totalnum);
+				 })
+				  myChart.setOption({
+				  xAxis: {
+							type:'category',
+							data: date,
+							boundaryGap : false,
+							axisLine:
+							{
+									lineStyle:
+									{
+														color: '#4b7fc3',
+									},
+							},
+							minorSplitLine:
+							{
+								lineStyle:
+								{
+													color: '#4b7fc3',
+								},
+							},
+					  },
+					  series:[{
+						  name:'新增确诊',
+						  data:newPa,
+					  },{
+						  name:'累计确诊',
+						  data:totalPa,
+					  }]
+				  });
+			 })
+			</script>
+			<script>
+				  var myChart1 = echarts.init(document.getElementById('chart1'));
+				  var option={
+					  textStyle:
+					  {
+					  					 color:'#4b7fc3',
+					  					 fontSize:'15',
+					  },
+					  tooltip:{   //工具提示
+					     //show: false,   //是否显示  默认为true
+					     trigger: 'axis'   ,//提示框的触发时机  axis: 坐标轴触发 柱状图，折线图   item：数据项触发 散点图，饼图
+					  },
+					 
+					  
+					title: {  //标题样式
+					    text: '各省累计确诊人数排名',
+					  textStyle:{
+					  	color: 'white',
+					  	fontSize: '20',
+					  	fontWeight: 'lighter',
+					  },
+					 },
+						 xAxis:{
+							 name:'确诊人数',
+							type:'log',
+							splitLine:
+							{
+								show:false,
+								
+							},
+							axisLine:
+							{
+									lineStyle:
+									{
+														color: '#4b7fc3',
+									},
+							},
+							
+						 },
+						 yAxis:{
+							 name:'省份(含自治区直辖市等)',
+							 type:'category',
+							data:[],
+							axisLine:
+							{
+									lineStyle:
+									{
+														color: '#4b7fc3',
+									},
+							},
+						 },
+						 series: {
+						      type: 'bar',
+						      name:'累计确诊人数',
+							  data:[],
+						  itemStyle: {
+								color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+								  { offset: 0, color: '#83bff6' },
+								  { offset: 0.5, color: '#188df0' },
+								  { offset: 1, color: '#188df0' }
+								])
+							  },
+						   }
+				  };
+				  myChart1.setOption(option);
+				  $.get("http://localhost:8090/getmap",function(data){
+					  var names=[];
+					  var confirms=[];
+					  $.each(data,function(index,cur){
+						  names[index]=cur.name;
+						  confirms[index]=cur.sumnum;
+					  })
+					  myChart1.setOption({
+						  yAxis:{
+							  data:names,
+						  },
+						  series:{
+							  data:confirms,
+						  },
+					  })
+				  })
+			</script>
+			<script>
+				 var myChart2 = echarts.init(document.getElementById('chart2'));
+				 var option={
+					 textStyle:
+					 {
+					 					 color:'#4b7fc3',
+					 					 fontSize:'15',
+					 },
+					 title:{
+						 text:'国内患病情况',
+						 textStyle:{
+						 	color: 'white',
+						 
+						 	fontWeight: 'lighter',
+						 },
+					 },
+					 legend:{
+						left:'10%',
+						 top:'10%',
+						 textStyle:{
+							 color:'#4b7fc3',
+						 },
+					 },
+					tooltip:{
+					   trigger: 'item',   //数据项触发
+					   formatter: '{a}<br/>{b} : {c} ({d}%)'   //数据格式   a 序列名称   b 数据名称  c 数值  d 百分比
+					},
+					
+					series: [
+					   {
+					     name: '患者情况',
+					     type: 'pie',   //饼图
+						  avoidLabelOverlap: true,
+					     //radius: '50%',   //半径   百分比 = min(width, height) / 2 * 50%  传入数组表示环形图
+						 radius: ['30%', '50%'],   //半径   传入数组表示环形图
+					     
+						 center: ['50%', '50%'],   //圆心坐标  px或百分比 = min(width, height) * 50%
+						 labelLine:{
+							 length:5,
+							 length2:5,
+						 },
+					     itemStyle:{
+					        normal : {
+					          label: {
+					            show: true,
+					            formatter: '{b}: {c} ({d}%)'   //{a}：系列名。 {b}：数据名。{c}：数据值。 {d}：百分比。
+					          }
+					        }
+					     },
+					
+					    data: [],
+					  }
+					],
+					
+				 }
+				 myChart2.setOption(option);
+				 $.get("http://localhost:8090/getpatient",function(data){
+					 var patients=[]
+					 $.each(data,function(index,cur){
+					 	var obj={}
+					 	obj.name=cur.situation
+					 	obj.value=cur.num
+					 		
+					 	patients.push(obj)
+					 });
+					 console.log(patients)
+					 myChart2.setOption({
+						 series:{
+							 data:patients,
+						 }
+					 })
+				 })
+
+				 let formaDate = function () {
+					let d = new Date();
+					let year = d.getFullYear(), //多变量赋值
+						month = d.getMonth() + 1, //month：从0开始
+						date = d.getDate(),
+						hour = d.getHours(),
+						minute = d.getMinutes(),
+						second = d.getSeconds();
+
+					year = year < 10 ? '0' + year : year; //三元操作符
+					month = month < 10 ? '0' + month : month;
+					date = date < 10 ? '0' + date : date;
+					hour = hour < 10 ? '0' + hour : hour;
+					minute = minute < 10 ? '0' + minute : minute;
+					second = second < 10 ? '0' + second : second;
+					let a = year + '-' + month + '-' + date + ' ' + hour + ':' + minute + ':' + second;
+					$('.showTime').html('<p>' + a + '</p>');
+					window.addEventListener('resize', () => {
+						let w = document.documentElement.clientWidth;
+						let ST = document.getElementById('ST');
+						if (w < 720) {
+						ST.style.display = 'none';
+						} else {
+						ST.style.display = 'block';
+						}
+					});
+					};
+					setInterval(formaDate, 1000); //设定定时器，循环运行;
+
+
+			</script>
+	</body>
+</html>

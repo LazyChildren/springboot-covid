@@ -1,4 +1,4 @@
-package com.neuedu.Entity;
+package me.lazychildren.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Province {
+public class Way {
     private String name;
-    private int newnum;
-    private int curnum;
-    private int sumnum;
+    private int count;
 }
