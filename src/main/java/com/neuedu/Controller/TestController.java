@@ -200,6 +200,12 @@ public class TestController {
 
     }
 
+    @RequestMapping("templates")
+    public String index()
+    {
+        return "china";
+    }
+
 
 
 

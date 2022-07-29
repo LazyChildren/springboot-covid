@@ -37,48 +37,10 @@
 	left:870px;
 	border:thin solid #00aaff;
 	background-color: #282c85;
+	background-image: url("../images/logo2.png");
 	width: 500px;
-
-}
-.cure h1 {
-    float: left;
-    height: 2rem;
-    font-size: 1.5rem;
-    margin-left: 6rem;
-	color:#D33B20;
 }
 
-.cure h2 {
-    float: left;
-    height: 2rem;
-    font-size: 1.5rem;
-	margin-top: 1.15rem;
-    margin-left: 6rem;
-  	color:#55ff7f;
-  }
-  
-
-  
-  .cure h3{
-	  float: left;
-	  font-size: 2rem;
-	  position: absolute;
-	  top:40px;
-	  margin-left: 4.9rem;
-	  color:#D33B20;
-  }
-  
-  
-  .cure h4{
-  	 float: left;
-  	 font-size: 2rem;
-  	 position: absolute;
-  	 top:30px;
-  	 margin-left: 17.5rem;
-  	 color:#55ff7f;
-  }
-  
-  
 /* 
   .header {
    height: 150px;
@@ -146,6 +108,7 @@
 	  top: 1500px;
 	  height:0px;
 	  width: 1260px;
+	  margin: 0 auto;
 	  border:thin solid #00aaff;
 	  background-color: #282c85;
   }

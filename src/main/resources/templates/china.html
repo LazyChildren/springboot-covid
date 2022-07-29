@@ -9,13 +9,13 @@
 		
 		{
 			background-color: rgba(21, 25, 101);
-		    background-image:url(/../images/bg4.png);
+		    background-image:url(../static/images/bg4.png);
 		}
 		
 		header {
 			/* max-width: 1920px; */
 			/* position: relative; */
-			background: url('/../images/head_bg.png') no-repeat top center;
+			background: url('../static/images/head_bg.png') no-repeat top center;
 			height: 80px;
 			/* 🔺缩放比例 100% */
 			background-size: 100% 100%;
@@ -41,9 +41,9 @@
 		}
 
 		</style>
-		<link rel="stylesheet" type="text/css" href="../css/config.css">
-		<script src="../js/echarts.min.js"></script>
-		<script src="../js/jquery-3.4.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../static/css/config.css"></link>
+		<script src="../static/js/echarts.min.js"></script>
+		<script src="../static/js/jquery-3.4.1.min.js"></script>
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
 		
 	</head>
@@ -51,8 +51,6 @@
 	<body>
 		<header container>
 
-			 
-			</div>
 			<h1>国内疫情数据</h1>
 			<div class="showTime" id="ST"></div>
 		</header>
@@ -60,10 +58,9 @@
 		<div id="chinazhu" class="chinazhu"></div>
 
 
-		<div id="cure" class="cure" style="background: url(../images/logo2.png)">
+		<div id="cure" class="cure">
 			
-
-
+		
 		</div>
 
 
@@ -126,7 +123,7 @@
 					    calculable: false,
 					    realtime: false,
 					    inRange: {
-						  color: ["#e0f3f8", "#abd9e9", "#74add1", "#4575b4", "#313695"],
+						  color: ["#e0f3f8", "#ffc7c7", "#d17a7a", "#b43c3c", "#951919"],
 					    },
 					    textStyle: {
 					      color: "rgba(255,255,255,1)"
@@ -181,7 +178,7 @@
 
 					
 				};
-				$.get("http://localhost:8090/getmap",{},function(data){
+				$.get("http://120.46.154.76:80/getmap",{},function(data){
 		
 					fillToPieMap(data);
 				myEcharts.setOption(
@@ -423,17 +420,15 @@
 			 // 使用刚指定的配置项和数据显示图表。
 			 myChart.setOption(option);
 			 
-			 $.get("http://localhost:8090/getdetail",function(data){
+			 $.get("http://120.46.154.76:80/getdetail",function(data){
 				 var newPa = [];
 				 var date=[];
 				 var totalPa=[];
 				 var oneDay= 24*3600*1000;
-				var curDay=new Date();
-				var base = curDay-60*oneDay;
-
-
+			
+				 var base =  +new Date();
 				 $.each(data,function(index,cur){
-					 var now = new Date((base += oneDay));
+					 var now = new Date(cur.year,cur.month,cur.date);
 					  date.push([now.getFullYear(), now.getMonth(), now.getDate()].join('/'));
 			
 					 newPa.push(cur.newnum);
@@ -536,7 +531,7 @@
 						   }
 				  };
 				  myChart1.setOption(option);
-				  $.get("http://localhost:8090/getmap",function(data){
+				  $.get("http://120.46.154.76:80/getmap",function(data){
 					  var names=[];
 					  var confirms=[];
 					  $.each(data,function(index,cur){
@@ -609,7 +604,7 @@
 					
 				 }
 				 myChart2.setOption(option);
-				 $.get("http://localhost:8090/getpatient",function(data){
+				 $.get("http://120.46.154.76:80/getpatient",function(data){
 					 var patients=[]
 					 $.each(data,function(index,cur){
 					 	var obj={}
